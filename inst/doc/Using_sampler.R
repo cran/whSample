@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
 #  library(whSample)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL)
+#  sampler <- function(backups=5, irisData=F, ci=0.95, me=0.07, p=0.50, seed=NULL)
 
 ## ----eval=F-------------------------------------------------------------------
 #  sampler(p=0.06)

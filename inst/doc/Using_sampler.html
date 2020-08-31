@@ -324,13 +324,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The <em>sampler</em> function calls <a href="Using_ssize.html"><strong><em>ssize</em></strong></a> to get its sample size estimate. <em>Sampler</em> uses the same sample size defaults as <em>ssize</em> and they can be overridden when launching <em>sampler</em> from the command line.</p>
 <p><strong><em>Sampler</em></strong> takes three additional arguments:</p>
 <ul>
-<li><strong>example</strong> opens the file chooser to a folder with example files of Anderston’s Iris dataset of flower characteristics.</li>
+<li><strong>irisData</strong> opens the file chooser to a folder with example files of Anderston’s Iris dataset of flower characteristics. This is useful for learning basic functionality. Any entry other than <strong>F</strong> will open to the folder, although you can navigate from a different folder from there if desired.</li>
 <li><strong>backups</strong> provides a buffer for use if necessary to replace samples found to be invalid for some reason, and</li>
 <li><strong>seed</strong>, used to seed the internal random number generator.</li>
 </ul>
 <p>The full range of command-line options is:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sampler &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">backups=</span><span class="dv">5</span>, <span class="dt">example=</span>F, <span class="dt">ci=</span><span class="fl">0.95</span>, <span class="dt">me=</span><span class="fl">0.07</span>, <span class="dt">p=</span><span class="fl">0.50</span>, <span class="dt">seed=</span><span class="ot">NULL</span>)</span></code></pre></div>
-<p>The defaults for these additional arguments are <em>backups=5</em>, <em>example=F</em> and <em>seed=NULL</em>. The default seed will tell <em>sampler</em> to use the current system time in milliseconds. Any number can be used as a seed. Whichever one is used will be listed in the <em>Report</em> output tab.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sampler &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">backups=</span><span class="dv">5</span>, <span class="dt">irisData=</span>F, <span class="dt">ci=</span><span class="fl">0.95</span>, <span class="dt">me=</span><span class="fl">0.07</span>, <span class="dt">p=</span><span class="fl">0.50</span>, <span class="dt">seed=</span><span class="ot">NULL</span>)</span></code></pre></div>
+<p>The defaults for these additional arguments are <em>backups=5</em>, <em>irisData=F</em> and <em>seed=NULL</em>. The default seed will tell <em>sampler</em> to use the current system time in milliseconds. Any number can be used as a seed. Whichever one is used will be listed in the <em>Report</em> output tab.</p>
 <p>To override any of these defaults, enter <em>name=value</em> as an argument when calling <em>sampler</em>, as in:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">sampler</span>(<span class="dt">p=</span><span class="fl">0.06</span>)</span></code></pre></div>
 <p>More on changing the number of backups in a minute.</p>
@@ -415,14 +415,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>openxlsx</li>
 <li>data.table</li>
 <li>tools</li>
-<li>rChoiceDialogs</li>
+<li>tcltk</li>
 </ul>
-<p>The rChoiceDialogs package provide the file chooser windows and requires Java to be installed on your computer.</p>
 </div>
 </div>
 <div id="jump_in" class="section level2">
 <h2>Examples</h2>
-<p>Running <em>sampler(example=T)</em> from the R console’s <strong>&gt;</strong> prompt will launch <em>sampler</em> with all the defaults and will open a file chooser with <em>iris.xlsx</em> and <em>iris.csv</em> options. <em>sampler</em> will read either format and generate an Excel file with the sampling paramaters you choose. A series of menus will take you step by step through the process and will open the generated spreadsheet with an Excel-compatible app if one is on your computer.</p>
+<p>Running <em>sampler(irisData=T)</em> from the R console’s <strong>&gt;</strong> prompt will launch <em>sampler</em> with the other defaults and will open a file chooser with <em>iris.xlsx</em> and <em>iris.csv</em> options. <em>sampler</em> will read either format and generate an Excel file with the sampling parameters you choose. A series of menus will take you step by step through the process and will open the generated spreadsheet with an Excel-compatible app if one is on your computer.</p>
 <p><em>Sampler</em> will pop up a directory chooser to let you decide where to put the output file. By default, it will offer the same folder as the source file. If you used the example file and don’t have an Excel-compatible app installed, you can find the output folder by entering this command at the <strong>&gt;</strong> prompt:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package=</span><span class="st">&quot;whSample&quot;</span>)</span></code></pre></div>
 <p><em>sampler(p=0.6, seed=12345)</em> Will override those specific defaults. You can override the other defaults in the same way.</p>

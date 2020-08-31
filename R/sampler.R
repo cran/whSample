@@ -10,10 +10,10 @@
 #' @import openxlsx
 #' @importFrom data.table fread setDF setDT
 #' @import dplyr
-#' @import rJava
-#' @importFrom rChoiceDialogs jchoose.files jchoose.dir
 #' @importFrom stats qnorm
-#' @importFrom tools file_path_sans_ext
+#' @importFrom tools file_path_sans_ext file_ext
+#' @importFrom utils head tail
+#' @importFrom tcltk tk_choose.dir tk_choose.files
 #' @param ci the required confidence level
 #' @param me the margin of error
 #' @param p the expected probability of occurrence
@@ -27,9 +27,9 @@
 #' sampler(backups=3, p=0.6)
 #' }
 
-utils::globalVariables(c("prop", ".", "jchoose.dir", "jchoose.files"))
+utils::globalVariables(c("prop", "."))
 
-sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
+sampler <- function(backups=5, irisData=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
 
   hdrStyle <- createStyle(halign="center", valign="center",
                           borderColour="black", textDecoration="bold",
@@ -43,20 +43,21 @@ sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
   ifelse(!is.numeric(seed), rns <- as.integer(Sys.time()), rns <- seed)
   set.seed(rns)
 
-  ifelse(example == F,
-         dataName <- jchoose.files("Select source file", multi=FALSE),
-         dataName <- jchoose.files(system.file("extdata", package="whSample"),
-                       "Select source file", multi=FALSE)
+  # File chooser will start at extdata dir for Iris if example != F
+  Filters <- matrix(c("Excel file", ".xlsx", "CSV file", ".csv"),
+                    2, 2, byrow=TRUE)
+
+  irisDir <- paste0(system.file("extdata", package="whSample"),
+                    "/iris.xlsx")
+  ifelse(irisData == F,
+         dataName <- tk_choose.files(path.expand("~"), "Select source file",
+                                     multi=FALSE, filters=Filters),
+         dataName <- tk_choose.files(irisDir, "Select source file",
+                                     multi=FALSE, filters=Filters)
          )
-
-
-  # if(example != F)
-  #   setwd(system.file("extdata", package="whSample"))
-  #
-  # dataName <- file.choose()
-
-  # # save the path to it so we can write to the same place
-  wb.path <- dirname(dataName)
+  if(length(dataName) > 1){
+    dataName <- paste(dataName, collapse=" ")
+  }
 
   wb <- createWorkbook(dataName)
 
@@ -91,12 +92,10 @@ sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
                            "Tabbed Stratified Sample")
 
   new.wb <- createWorkbook()
-  # new.wb.name <- glue('{wb.path}/{file_path_sans_ext(dataName) %>%
-  #                     basename()}_Sample.xlsx')
 
   new.wb.name <- paste0(file_path_sans_ext(basename(dataName)),"_Sample.xlsx")
 
-  # include the original worksheet for reference
+  # Include original data in output for reference
   addWorksheet(new.wb, "Original")
   writeDataTable(new.wb, "Original", data, tableName="Data", withFilter=F)
   setColWidths(new.wb, "Original", cols=1:ncol(data), widths="auto")
@@ -135,6 +134,7 @@ sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
     stratifyOn <- names(data)[utils::menu(names(data), graphics=T,
                                           title="Stratify on")]
 
+    # Don't let user-defined backups exceed observations
     dataSamples <- data %>% group_by_at(stratifyOn) %>% count() %>%
       data.table::setDT() %>% mutate(prop = prop.table(n)) %>%
       mutate(numSamples = ceiling(ifelse(
@@ -151,18 +151,14 @@ sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
       map2_dfr(., dataSamples$numSamples,
                ~head(.x, .y))
 
-    # test <- split(data, data[stratifyOn]) %>%
-    #   map2_dfr(., dataSamples$numBackups, ~(.x, .y))
-
     backupSamples <- split(data, data[stratifyOn]) %>%
       map2_dfr(., dataSamples$numBackups,
                ~tail(.x, .y))
+    # Empty backupSamples will crash, so add zeros if necessary
     if(backups==0) {
       newRow <- rep(0, ncol(backupSamples))
       backupSamples[nrow(backupSamples) +1, ] <- newRow
     }
-
-
 
     if(sampleType == 2L){
 
@@ -248,7 +244,7 @@ sampler <- function(backups=5, example=F, ci=0.95, me=0.07, p=0.50, seed=NULL) {
                    widths="auto")
     }
 
-    saveDir <- jchoose.dir(dirname(dataName),
+    saveDir <- tk_choose.dir(dirname(dataName),
                            caption="Select output directory (Cancel will exit without saving)")
 
     saveWorkbook(new.wb, paste(saveDir, new.wb.name, sep="\\"), overwrite=T)
