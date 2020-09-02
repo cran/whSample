@@ -1,12 +1,12 @@
-2c62ab7a8c724bedbf8df07d7cfe70d1 *DESCRIPTION
-d38f140dfc2a88cb1a144ef7bc44f437 *NAMESPACE
-cce3ac8f5042b8eb62fa634163844444 *R/sampler.R
+4d2bd37f4da3d22e1f394f7f6099d9ec *DESCRIPTION
+f098ad8a1e9f112e69fbbfd04ef52348 *NAMESPACE
+41f06924419ec36d6c7e219e0be9cfdd *R/sampler.R
 d8d246b4941a2a8708cf455816627c92 *R/ssize.R
-14f06f02a43126c5e5f71851a538f223 *README.md
+9e638b287704391eb23e22644c5e689f *README.md
 2f4e649f376557dc0c3047217bd840ab *build/vignette.rds
 d53f98b8eb5d543a68bab350cc8481f1 *inst/doc/Using_sampler.R
-8063392fda00b82fc7ccf3efd1f4c2b2 *inst/doc/Using_sampler.Rmd
-9ed70ee65247ce8dd74e4f75f7e8621d *inst/doc/Using_sampler.html
+aab15f1e6bc9732cea6f40619670884a *inst/doc/Using_sampler.Rmd
+e9dbf91816f886b242a405f798457c92 *inst/doc/Using_sampler.html
 44846eeb346ef0abe77471449fae1875 *inst/doc/Using_ssize.R
 204a2b947e877c639f7309076fd0386c *inst/doc/Using_ssize.Rmd
 5f28c67a4876b6d1cc5c932724edbc92 *inst/doc/Using_ssize.html
@@ -15,5 +15,5 @@ d53f98b8eb5d543a68bab350cc8481f1 *inst/doc/Using_sampler.R
 b9ab9fc218467a326e6036678013a020 *man/sampler.Rd
 34e4d5daa17fb402553b8e9c329ccb16 *man/ssize.Rd
 06d367f28f74a71926c3382e6300a102 *tests/testthat.R
-8063392fda00b82fc7ccf3efd1f4c2b2 *vignettes/Using_sampler.Rmd
+aab15f1e6bc9732cea6f40619670884a *vignettes/Using_sampler.Rmd
 204a2b947e877c639f7309076fd0386c *vignettes/Using_ssize.Rmd
