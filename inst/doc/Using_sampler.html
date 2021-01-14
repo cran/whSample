@@ -31,6 +31,78 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {   }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #7d9029; } /* Attribute */
+  code span.bn { color: #40a070; } /* BaseN */
+  code span.bu { } /* BuiltIn */
+  code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4070a0; } /* Char */
+  code span.cn { color: #880000; } /* Constant */
+  code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code span.dt { color: #902000; } /* DataType */
+  code span.dv { color: #40a070; } /* DecVal */
+  code span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #40a070; } /* Float */
+  code span.fu { color: #06287e; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code span.op { color: #666666; } /* Operator */
+  code span.ot { color: #007020; } /* Other */
+  code span.pp { color: #bc7a00; } /* Preprocessor */
+  code span.sc { color: #4070a0; } /* SpecialChar */
+  code span.ss { color: #bb6688; } /* SpecialString */
+  code span.st { color: #4070a0; } /* String */
+  code span.va { color: #19177c; } /* Variable */
+  code span.vs { color: #4070a0; } /* VerbatimString */
+  code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
@@ -322,15 +394,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(whSample)</span></code></pre></div>
 <p>The <strong><em>sampler</em></strong> function is part of the <strong><em>whSample</em></strong> package of utilities for sampling. It is a menu-driven R application that reads an Excel spreadsheet or delimited text file and generates a new Excel workbook with a copy of the original data, a Simple Random or Stratified Random Sample, and a report of what it did.</p>
 <p>The <em>sampler</em> function calls <a href="Using_ssize.html"><strong><em>ssize</em></strong></a> to get its sample size estimate. <em>Sampler</em> uses the same sample size defaults as <em>ssize</em> and they can be overridden when launching <em>sampler</em> from the command line.</p>
-<p><strong><em>Sampler</em></strong> takes three additional arguments:</p>
+<p><strong><em>sampler</em></strong> takes four additional arguments:</p>
 <ul>
-<li><strong>irisData</strong> opens the file chooser to a folder with example files of Anderston’s Iris dataset of flower characteristics. This is useful for learning basic functionality. Any entry other than <strong>F</strong> will open to the folder, although you can navigate from a different folder from there if desired.</li>
-<li><strong>backups</strong> provides a buffer for use if necessary to replace samples found to be invalid for some reason, and</li>
-<li><strong>seed</strong>, used to seed the internal random number generator.</li>
+<li><strong>irisData</strong> opens the file chooser to a folder with example files of Anderston’s Iris dataset of flower characteristics.</li>
+<li><strong>backups</strong> provides a buffer for use if necessary to replace samples found to be invalid for some reason,</li>
+<li><strong>seed</strong> is used to seed the internal random number generator, and</li>
+<li><strong>keepOrg</strong> determines if a copy of the population is included in the output.</li>
 </ul>
 <p>The full range of command-line options is:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sampler &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">backups=</span><span class="dv">5</span>, <span class="dt">irisData=</span>F, <span class="dt">ci=</span><span class="fl">0.95</span>, <span class="dt">me=</span><span class="fl">0.07</span>, <span class="dt">p=</span><span class="fl">0.50</span>, <span class="dt">seed=</span><span class="ot">NULL</span>)</span></code></pre></div>
-<p>The defaults for these additional arguments are <em>backups=5</em>, <em>irisData=F</em> and <em>seed=NULL</em>. The default seed will tell <em>sampler</em> to use the current system time in milliseconds. Any number can be used as a seed. Whichever one is used will be listed in the <em>Report</em> output tab.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sampler &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">backups=</span><span class="dv">5</span>, <span class="dt">irisData=</span>F, <span class="dt">ci=</span><span class="fl">0.95</span>, <span class="dt">me=</span><span class="fl">0.07</span>, <span class="dt">p=</span><span class="fl">0.50</span>, <span class="dt">seed=</span><span class="ot">NULL</span>, <span class="dt">keepOrg=</span>T)</span></code></pre></div>
+<p>The defaults for these additional arguments are <em>backups=5</em>, <em>irisData=F</em>, <em>seed=NULL</em> and <em>keepOrg=T&quot;. The default seed will tell </em>sampler* to use the current system time in milliseconds. Any number can be used as a seed. Whichever one is used will be listed in the <em>Report</em> output tab. The keep-original option (<em>keepOrg</em>) defaults to TRUE, but should be <em>keepOrg=F</em> for populations larger than about a million records since Excel’s row limit is 1,048,576 and <em>sampler</em> adds some header and blank lines to its output.</p>
 <p>To override any of these defaults, enter <em>name=value</em> as an argument when calling <em>sampler</em>, as in:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">sampler</span>(<span class="dt">p=</span><span class="fl">0.06</span>)</span></code></pre></div>
 <p>More on changing the number of backups in a minute.</p>
@@ -344,7 +417,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">sampler</span>()</span></code></pre></div>
 <div id="choose-the-source-data-file" class="section level3">
 <h3>Choose the source data file</h3>
-<p>A file chooser will appear to select a source file. <em>Sampler</em> will remember where the source file came from and will put the resulting output file in the same folder with the name <strong><em>source file name</em></strong> <strong>Sample.xlsx</strong>.</p>
+<p>A file chooser will appear to select a source file. <em>Sampler</em> will remember where the source file came from and will put the resulting output file in the same folder with the name <strong><em>source file name_Sample.xlsx</em></strong>.</p>
 <p><em>Sampler</em> will read Excel or delimited text files.</p>
 </div>
 <div id="choose-the-data-worksheet" class="section level3">
@@ -357,7 +430,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>There may be times when you want a specific number of backups that isn’t listed. In this case, you need to <strong>start</strong> <strong><em>sampler</em></strong> <strong>with the number of backups desired</strong>, as in:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">sampler</span>(<span class="dt">backups=</span><span class="dv">25</span>)</span></code></pre></div>
 <p><strong>Important note:</strong> At this point, if you specified a number of backups on the command line, <strong>hit</strong> <strong><em>Cancel</em></strong> and <em>sampler</em> will use the number you specified. Clicking Okay will accept whatever was highlighted in the menu. If you didn’t specify a number on the command line and hit Cancel, <em>sampler</em> will use the default of five.</p>
-<p>For a Simple Random Sample, the startup command shown above will add the next 25 items from the randomized population to a separate table at the end of the output Excel workbook.</p>
+<p>For a Simple Random Sample, the startup example shown above will add the next 25 items from the randomized population to a separate table at the end of the output Excel workbook.</p>
 <p>Stratified samples will include 25 backups <strong>for each stratum</strong>. This could be a problem if a given stratum doesn’t have 25 more items to include. In this case, <em>sampler</em> will scale back the number of backups to the number of items available for that stratum. The <strong><em>Report tab</em></strong> will list the number of backups actually provided for each stratum.</p>
 </div>
 <div id="choose-the-sampling-type" class="section level3">
@@ -384,6 +457,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><p>desired confidence level</p></li>
 <li><p>desired margin of error</p></li>
 <li><p>anticipated rate of occurrence</p></li>
+<li><p>stratification key</p></li>
 <li><p>number of strata</p></li>
 <li><p>number of backups per stratum</p></li>
 <li><p>random number seed used, for documentation and reproducibility</p></li>
@@ -416,12 +490,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>data.table</li>
 <li>tools</li>
 <li>tcltk</li>
+<li>bit64</li>
 </ul>
 </div>
 </div>
 <div id="jump_in" class="section level2">
 <h2>Examples</h2>
-<p>Running <em>sampler(irisData=T)</em> from the R console’s <strong>&gt;</strong> prompt will launch <em>sampler</em> with the other defaults and will open a file chooser with <em>iris.xlsx</em> and <em>iris.csv</em> options. <em>sampler</em> will read either format and generate an Excel file with the sampling parameters you choose. A series of menus will take you step by step through the process and will open the generated spreadsheet with an Excel-compatible app if one is on your computer.</p>
+<p>Running <em>sampler(irisData=T)</em> from the R console’s <strong>&gt;</strong> prompt will launch <em>sampler</em> with the other defaults and will open a file chooser with <em>iris.xlsx</em> and <em>iris.csv</em> options (check the file type drop down for different suffixes). <em>sampler</em> will read either format (or delimited text) and generate an Excel file with the sampling parameters you choose. A series of menus will take you step by step through the process and will open the generated spreadsheet with an Excel-compatible app if one is on your computer.</p>
 <p><em>Sampler</em> will pop up a directory chooser to let you decide where to put the output file. By default, it will offer the same folder as the source file. If you want to see the output Excel file without first saving it, hit <em>Cancel</em>. The file will open but won’t automatically be saved. You can save it from Excel if you want.</p>
 <p>If you used the example file and don’t have an Excel-compatible app installed, you can find the output folder by entering this command at the <strong>&gt;</strong> prompt:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package=</span><span class="st">&quot;whSample&quot;</span>)</span></code></pre></div>
