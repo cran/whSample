@@ -1,7 +1,7 @@
 Package: whSample
 Type: Package
 Title: Utilities for Sampling
-Version: 0.9.4
+Version: 0.9.6.2
 Depends: R (>= 3.5.0)
 Authors@R: person("Paul", "West", role=c("aut", "cre"), email="fp8049@gmail.com")
 Description: Interactive tools for generating random samples. Users select an
@@ -14,15 +14,14 @@ Description: Interactive tools for generating random samples. Users select an
     users pick an output directory. See vignettes for a detailed walk-through.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports: data.table, magrittr, openxlsx, dplyr, purrr, tools, utils,
         bit64
 RoxygenNote: 7.1.1
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-01-14 00:27:42 UTC; Paul
+Packaged: 2021-05-13 13:53:40 UTC; Paul
 Author: Paul West [aut, cre]
 Maintainer: Paul West <fp8049@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-01-14 05:40:03 UTC
+Date/Publication: 2021-05-13 15:00:02 UTC

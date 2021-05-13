@@ -30,7 +30,7 @@
 utils::globalVariables(c("prop", "."))
 
 sampler <- function(backups=5, irisData=F, ci=0.95, me=0.07, p=0.50, seed=NULL,
-                    keepOrg=T) {
+                    keepOrg=F) {
 
   hdrStyle <- createStyle(halign="center", valign="center",
                           borderColour="black", textDecoration="bold",
@@ -135,6 +135,8 @@ sampler <- function(backups=5, irisData=F, ci=0.95, me=0.07, p=0.50, seed=NULL,
     setColWidths(new.wb, "Simple Random Sample", cols=1:ncol(data),
                  widths="auto")
   } else {
+
+    data  <- data %>%  slice_sample(prop=1)
 
     stratifyOn <- names(data)[utils::menu(names(data), graphics=T,
                                           title="Stratify on")]
